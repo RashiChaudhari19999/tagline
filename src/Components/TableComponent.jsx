@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
-
-const TableComponent = ({ data }) => {
-  const jsonData = data.filter((item) => item?.mall) || [];
- 
+import { data } from '../Json/data';
+const TableComponent = ({ datas,filters }) => {
+  const jsonDta=data.filter((item)=>item.mall)||[]
+  useEffect(()=>{
+if(data.length === 0){
+  
+}
+  },[filters,data])
   return (
     <>
     {
-      jsonData.length>0?
+      datas.length>0  || data.filter(item=>item.mall)?
 <TableContainer component={Paper}>
      <Table>
        <TableHead>
@@ -20,7 +24,7 @@ const TableComponent = ({ data }) => {
          </TableRow>
        </TableHead>
        <TableBody>
-         {data.map((row) => (
+         {datas.map((row) => (
            <TableRow key={row.id}>
              <TableCell>{row.id}</TableCell>
              <TableCell>{row.mall}</TableCell>
@@ -34,7 +38,9 @@ const TableComponent = ({ data }) => {
    </TableContainer>
     :
     
-    <TableContainer component={Paper}>
+      data.filter(item=>item.city) &&
+    
+    (<TableContainer component={Paper}>
       <Table>
         <TableHead>
           <TableRow>
@@ -47,7 +53,7 @@ const TableComponent = ({ data }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
+          {datas.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.id}</TableCell>
               <TableCell>{row.name}</TableCell>
@@ -59,7 +65,7 @@ const TableComponent = ({ data }) => {
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
+    </TableContainer>)
     }
      
    </>

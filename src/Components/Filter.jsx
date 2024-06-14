@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, FormControlLabel, Switch, TextField } from '@mui/material';
-
-const Filter = ({ filters, data,onFilterChange,onSearchChange }) => {
+import { data } from '../Json/data';
+const Filter = ({ filters, datas,onFilterChange,onSearchChange }) => {
   const handleSwitchChange = (name,value,event) => {
       onFilterChange(name, value,event.target.checked);
       
-  };
-  const filterData=data.filter((item)=>item.mall)||[]
+      };
+    const jsonDta=datas.filter((item)=>item.mall)||[]
+  // if(jsonDta){
+
+  // }
+
   return (
     <Grid container spacing={2} style={{ marginBottom: '20px' }}>
-      <Grid container spacing={2} style={{ marginTop: '20px' }}>
+      {
+        jsonDta.length>0 || data.filter(item=>item.mall)?
+<Grid container spacing={2} style={{ marginTop: '20px' }}>
       <Grid item xs={12}>
           <TextField
             label="Search"
@@ -20,8 +26,6 @@ const Filter = ({ filters, data,onFilterChange,onSearchChange }) => {
             onChange={(e) => onSearchChange(e.target.value)}
           />
         </Grid>
-        {
-            filterData.length >0 ? 
             <Grid item xs={3} > 
             <div style={{borderRight:"4px solid gray",height:"160px"}}>
              <h3>{ "Address"}</h3>
@@ -43,7 +47,55 @@ const Filter = ({ filters, data,onFilterChange,onSearchChange }) => {
          />
             </div>
             </Grid>
-            : 
+     
+      <Grid item xs={3}>
+      <div style={{borderRight:"4px solid gray",height:"160px"}}>
+            <h3>{"Category"}</h3>
+        <FormControlLabel
+          control={<Switch name="category" checked={filters.category.includes('one')} onChange={(e)=>handleSwitchChange(e.target.name,'one',e)} />}
+          label="Category One"
+        />
+        <FormControlLabel
+          control={<Switch name="category" checked={filters.category.includes('two')} onChange={(e)=>handleSwitchChange(e.target.name,'two',e)} />}
+          label="Category Two"
+        />
+        </div>
+      </Grid>
+      <Grid item xs={3}>
+      <div style={{borderRight:"4px solid gray",height:"160px"}}>
+            <h3>
+                  Rating
+            </h3>
+        <FormControlLabel
+          control={<Switch name="rating" checked={filters.rating.includes('A')} onChange={(e)=>handleSwitchChange(e.target.name,'A',e)} />}
+          label="Type A"
+        />
+        <FormControlLabel
+          control={<Switch name="rating" checked={filters.rating.includes('B')} onChange={(e)=>handleSwitchChange(e.target.name,'B',e)} />}
+          label="Type B"
+        />
+        <FormControlLabel
+          control={<Switch name="rating"  checked={filters.rating.includes('C')} onChange={(e)=>handleSwitchChange(e.target.name,'C',e)} />}
+          label="Type C"
+        />
+        </div>
+      </Grid>
+      
+    </Grid>
+    :
+    data.filter(item=>item.city) &&
+    (<Grid container spacing={2} style={{ marginTop: '20px' }}>
+      <Grid item xs={12}>
+          <TextField
+            label="Search"
+            variant="outlined"
+            fullWidth
+            placeholder='Search here...'
+            value={filters.search}
+            onChange={(e) => onSearchChange(e.target.value)}
+          />
+        </Grid>
+           
             <Grid item xs={3} > 
             <div style={{borderRight:"4px solid gray",height:"160px"}}>
              <h3>{ "City"}</h3>
@@ -61,11 +113,10 @@ const Filter = ({ filters, data,onFilterChange,onSearchChange }) => {
          />
             </div>
        </Grid>
-        }
      
       <Grid item xs={3}>
       <div style={{borderRight:"4px solid gray",height:"160px"}}>
-            <h3>{filterData.length >0  ? "Category":"Category"}</h3>
+            <h3>{"Category"}</h3>
         <FormControlLabel
           control={<Switch name="category" checked={filters.category.includes('one')} onChange={(e)=>handleSwitchChange(e.target.name,'one',e)} />}
           label="Category One"
@@ -78,11 +129,7 @@ const Filter = ({ filters, data,onFilterChange,onSearchChange }) => {
       </Grid>
       <Grid item xs={3}>
       <div style={{borderRight:"4px solid gray",height:"160px"}}>
-           {filterData.length >0 ?
-            <h3>
-                  Rating
-            </h3>:<h3>Type</h3>
-           }
+          <h3>Type</h3>
            
         <FormControlLabel
           control={<Switch name="type" checked={filters.type.includes('A')} onChange={(e)=>handleSwitchChange(e.target.name,'A',e)} />}
@@ -98,7 +145,7 @@ const Filter = ({ filters, data,onFilterChange,onSearchChange }) => {
         />
         </div>
       </Grid>
-      {filterData.length >0 ? <></>:
+      
             <Grid item xs={3}>
             
             <h3>Active</h3>
@@ -110,8 +157,10 @@ const Filter = ({ filters, data,onFilterChange,onSearchChange }) => {
           control={<Switch name="active" checked={filters.active.includes('FALSE')} onChange={(e)=>handleSwitchChange(e.target.name,'FALSE',e)} />}
           label="Inactive"
         />
-      </Grid>}
-    </Grid>
+      </Grid>
+    </Grid>)
+      }
+      
     </Grid>
 
   );
