@@ -1,28 +1,50 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { data } from '../Json/data';
 const TableComponent = ({ datas,filters }) => {
-  const jsonDta=data.filter((item)=>item.mall)||[]
-  useEffect(()=>{
-if(data.length === 0){
-  
-}
-  },[filters,data])
+console.log('data.filter((item)=>item.mall)', data.filter((item)=>item.mall))
   return (
     <>
-    {
-      datas.length>0  || data.filter(item=>item.mall)?
+    
 <TableContainer component={Paper}>
      <Table>
        <TableHead>
          <TableRow>
-           <TableCell>ID</TableCell>
-           <TableCell>Mall</TableCell>
-           <TableCell>Address</TableCell>
-           <TableCell>Rating</TableCell>
-           <TableCell>Category</TableCell>
+         {data.filter((item)=>item.address).length>0 ? 
+         <>
+         <TableCell>ID</TableCell>
+         <TableCell>Mall</TableCell>
+         <TableCell>Address</TableCell>
+         <TableCell>Rating</TableCell>
+         <TableCell>Category</TableCell>
+         </>
+         :
+         (<>
+         <TableCell>ID</TableCell>
+          <TableCell>Name</TableCell>
+          <TableCell>City</TableCell>
+          <TableCell>Category</TableCell>
+          <TableCell>Type</TableCell>
+          <TableCell>Active</TableCell>
+         </>)
+         }
          </TableRow>
        </TableHead>
+       {
+        data.filter((item)=>item.city).length>0 ? 
+        <TableBody>
+        {datas.map((row) => (
+          <TableRow key={row.id}>
+            <TableCell>{row.id}</TableCell>
+            <TableCell>{row.name}</TableCell>
+            <TableCell>{row.city}</TableCell>
+            <TableCell>{row.category}</TableCell>
+            <TableCell>{row.type}</TableCell>
+            <TableCell>{row.active}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody> :
+
        <TableBody>
          {datas.map((row) => (
            <TableRow key={row.id}>
@@ -34,39 +56,11 @@ if(data.length === 0){
            </TableRow>
          ))}
        </TableBody>
+       }
+      
      </Table>
    </TableContainer>
-    :
     
-      data.filter(item=>item.city) &&
-    
-    (<TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>City</TableCell>
-            <TableCell>Category</TableCell>
-            <TableCell>Type</TableCell>
-            <TableCell>Active</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {datas.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.id}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.city}</TableCell>
-              <TableCell>{row.category}</TableCell>
-              <TableCell>{row.type}</TableCell>
-              <TableCell>{row.active}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>)
-    }
      
    </>
 
