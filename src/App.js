@@ -19,8 +19,10 @@ function App() {
   });
   useEffect(()=>{
     console.log('useeeffefcgt')
-    const filterData=stateData.filter((item)=>item.mall)||[]
-    const filterDatas=stateData.filter((item)=>item.city)||[]
+    const filterData=data.filter((item)=>item.mall)||[]
+    const filterDatas=data.filter((item)=>item.city)||[]
+    console.log('filterData', filterData)
+    console.log('filterDatas', filterDatas)
     if(filterData?.length > 0){
       console.log('if')
       const filterData1= data.filter((item) => {
@@ -119,8 +121,8 @@ console.log('1', 1)
       search: searchValue,
     }));
   };
-console.log('filters', filters)
- 
+console.log('stateData', stateData)
+ console.log('filters', filters)
   return (
     <Container>
       <FilterComponent

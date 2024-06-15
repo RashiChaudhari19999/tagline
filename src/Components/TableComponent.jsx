@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { data } from '../Json/data';
 const TableComponent = ({ datas,filters }) => {
-console.log('data.filter((item)=>item.mall)', data.filter((item)=>item.mall))
+  console.log('datas', datas)
   return (
     <>
     
