@@ -18,13 +18,9 @@ function App() {
     rating: [],
   });
   useEffect(()=>{
-    console.log('useeeffefcgt')
     const filterData=data.filter((item)=>item.mall)||[]
     const filterDatas=data.filter((item)=>item.city)||[]
-    console.log('filterData', filterData)
-    console.log('filterDatas', filterDatas)
     if(filterData?.length > 0){
-      console.log('if')
       const filterData1= data.filter((item) => {
         const matchesCity =
           filters.address.length === 0 || filters.address.includes(item.address);
@@ -41,16 +37,13 @@ function App() {
         return matchesCity && matchesCategory && matchesType && matchesSearch;
       });
       if(filterData1.length===0){
-        console.log('0', 0)
         setStateData([])
 
       }else{
-console.log('1', 1)
         setStateData(filterData1)
       }
     }
     else if(filterDatas.length>0){
-      console.log('elseif2')
       const filterData2=data.filter((item) => {
         const matchesCity =
           filters.city.length === 0 || filters.city.includes(item.city);
@@ -75,7 +68,7 @@ console.log('1', 1)
         );
       });
       if(filterData2.length===0){
-        setStateData(filterData2)
+        setStateData([])
 
       }else{
 
@@ -101,7 +94,6 @@ console.log('1', 1)
   setStateData(filterData1);
 }
   },[data,filters.city,filters.search,filters.address,filters.category,filters.type,filters.active,filters.rating])
-  console.log('stateData', stateData)
  
   const handleFilterChange = (name, value, isChecked) => {
     setFilters((prevFilters) => {

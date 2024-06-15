@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { data } from '../Json/data';
 const TableComponent = ({ datas,filters }) => {
-  console.log('datas', datas)
   return (
     <>
     

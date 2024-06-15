@@ -5,10 +5,6 @@ const Filter = ({ filters, datas, onFilterChange, onSearchChange }) => {
   const handleSwitchChange = (name, value, event) => {
     onFilterChange(name, value, event.target.checked)
   }
-  const jsonDta = data.filter((item) => item.mall) || []
-  // if(jsonDta){
-
-  // }
 
   return (
     <Grid container spacing={2} style={{ marginTop: '20px' }}>
